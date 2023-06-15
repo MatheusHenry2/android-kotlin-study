@@ -1,8 +1,8 @@
-package com.example.kotlin
+package com.example.conversordetemperatura
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.kotlin.databinding.ActivityMainBinding
+import com.example.conversordetemperatura.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,14 +10,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.buttonOla.setOnClickListener {
-            val nome: String = binding.editNome.text.toString()
-            //binding.textResultado.text = "Olá " + nome
-            //binding.textResultado.text = "Olá ${nome}"
-            binding.textResultado.setText("Olá " + nome)
+        binding.buttonConverter.setOnClickListener {
+
+            if (!binding.editCelsius.text.toString().isEmpty()) {
+                val celsius = binding.editCelsius.text.toString().toDouble()
+                val fah = String.format("%.2f", celsius * 1.8) + 32
+                binding.textResult.text = fah
+            }
+            else{
+                binding.textResult.text = "invalido!"
+            }
         }
     }
 }
