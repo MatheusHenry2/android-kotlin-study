@@ -1,8 +1,9 @@
-package com.example.conversordetemperatura
+package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.conversordetemperatura.databinding.ActivityMainBinding
+import android.widget.Toast
+import com.example.myapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,20 +11,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.buttonConverter.setOnClickListener {
+        binding.buttonOla.setOnClickListener{
 
-            if (!binding.editCelsius.text.toString().isEmpty()) {
-                val celsius = binding.editCelsius.text.toString().toDouble()
-                val fah = String.format("%.2f", celsius * 1.8) + 32
-                binding.textResult.text = fah
+            val nome = binding.editNome.text.toString().trim()
+            val sobrenome = binding.editSobrenome.text.toString().trim()
+
+            if(nome.isEmpty() || sobrenome.isEmpty()){
+                binding.textResultado.text = "nome ou sobrenome vazio!"
+                Toast.makeText(applicationContext, "nome ou sobrenome vazio!",Toast.LENGTH_SHORT).show( )
             }
             else{
-                binding.textResult.text = "invalido!"
+                binding.textResultado.text = "Olá $nome $sobrenome"
+                Toast.makeText(applicationContext, "Olá $nome $sobrenome",Toast.LENGTH_LONG).show( )
             }
+
         }
     }
 }
