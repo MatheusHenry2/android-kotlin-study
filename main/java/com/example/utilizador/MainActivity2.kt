@@ -15,14 +15,11 @@ class MainActivity2 : AppCompatActivity() {
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val i = intent
-
-        val nome = i.extras?.getString("nome")
-
-        if (nome.equals("") || nome == null) {
-            Toast.makeText(applicationContext, "Nome não inserido", Toast.LENGTH_SHORT).show()
-        } else {
-            binding.textNome.setText("Olá ${nome}")
+        binding.buttonOk.setOnClickListener {
+            val nome = binding.editTextTextPersonName.text.toString()
+            val i = Intent(this, MainActivity::class.java)
+            i.putExtra("nome", nome)
+            startActivity(i)
         }
     }
 }

@@ -3,6 +3,7 @@ package com.example.utilizador
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.utilizador.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -14,11 +15,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.buttonEditar.setOnClickListener {
-            val nome = binding.editNome.text.toString()
-            val i = Intent(this, MainActivity2::class.java)
-            i.putExtra("nome", nome)
-            startActivity(i)
+        val i = intent
+        val nome = i.extras?.getString("nome")
+
+        if (nome.equals("") || nome == null) {
+            binding.textNomeMudar.setText("Olá Utilizador")
+        }else{
+            binding.textNomeMudar.setText("Olá ${nome}")
         }
+
+        binding.buttonEditar.setOnClickListener {
+            startActivity(Intent(this, MainActivity2::class.java))
+        }
+
     }
 }
