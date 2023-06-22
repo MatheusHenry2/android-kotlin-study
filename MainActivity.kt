@@ -1,9 +1,10 @@
-package com.example.myapplication
+package com.example.lista
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.example.myapplication.databinding.ActivityMainBinding
+import com.example.lista.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,20 +15,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.buttonOla.setOnClickListener{
+        val listaNumeros = ArrayList<Int>()
+        listaNumeros.add(1)
+        listaNumeros.add(10)
+        listaNumeros.add(5)
+        listaNumeros.add(4)
+        listaNumeros.add(8)
 
-            val nome = binding.editNome.text.toString().trim()
-            val sobrenome = binding.editSobrenome.text.toString().trim()
-
-            if(nome.isEmpty() || sobrenome.isEmpty()){
-                binding.textResultado.text = "nome ou sobrenome vazio!"
-                Toast.makeText(applicationContext, "nome ou sobrenome vazio!",Toast.LENGTH_SHORT).show( )
-            }
-            else{
-                binding.textResultado.text = "Olá $nome $sobrenome"
-                Toast.makeText(applicationContext, "Olá $nome $sobrenome",Toast.LENGTH_LONG).show( )
-            }
-
+        val adapter = ArrayAdapter(this, android.R. layout.simple_list_item_1, listaNumeros)
+        binding.listView.adapter = adapter
+        
+        binding.listView.setOnItemClickListener { parent, view, position, id ->
+            Toast.makeText(this, "Clicado em ${listaNumeros.get(position)}", Toast.LENGTH_SHORT).show()
         }
     }
 }
